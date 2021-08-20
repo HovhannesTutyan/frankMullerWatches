@@ -9,6 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 class WatchesPage(BasePage):
+    SEARCH_INPUT = (By.CSS_SELECTOR, ".search__input")
+    SEARCH_SAMPLE_WATCH_NAME = "V 32 QZ D (NR) ace"
     def __init__(self, driver):
         super().__init__(driver)
         self.driver.get('https://fm.awi.am/watches')
@@ -75,3 +77,64 @@ class WatchesPage(BasePage):
         assert collection_titles[1].text == "INFINITY"
         assert collection_titles[2].text == "CIELO"
         assert len(collection_titles) == 3
+    def search_by_empty_field(self):
+        self.do_click(self.SEARCH_INPUT)
+        self.do_send_keys(self.SEARCH_INPUT,Keys.ENTER)
+    def search_by_prod_spec(self):
+        self.do_click(self.SEARCH_INPUT)
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT,"Winding shaft")
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT,Keys.ENTER)
+        time.sleep(2)
+    def search_by_collection_name(self):                 ################### BUG ###################
+        self.do_click(self.SEARCH_INPUT)
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, "SKAFANDER")
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, Keys.ENTER)
+        time.sleep(2)
+    def search_by_sub_collection_name(self):            ################## BUG ####################
+        self.do_click(self.SEARCH_INPUT)
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, "Vanguard Yachting")
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, Keys.ENTER)
+        time.sleep(2)
+    def search_by_product_full_name(self):
+        self.do_click(self.SEARCH_INPUT)
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, self.SEARCH_SAMPLE_WATCH_NAME)
+        time.sleep(2)
+        self.do_send_keys(self.SEARCH_INPUT, Keys.ENTER)
+        time.sleep(2)
+    def filter_by_empty_tags(self):
+        menu_item = self.driver.find_elements(By.CSS_SELECTOR,".menu__item")
+        for item in menu_item:
+            if item.text == "Gender":
+                item.click()
+        filter_done = self.driver.find_elements(By.CSS_SELECTOR,".group__search.button")
+        time.sleep(2)
+        filter_done[0].click()
+    def filter_delete_by_not_done(self):                                                                ############# BUG #############
+        menu_item = self.driver.find_elements(By.CSS_SELECTOR, ".menu__item")
+        def gender_click():
+            for item in menu_item:
+                if item.text == "Gender":
+                    item.click()
+        gender_click()
+        filter_checkbox = self.driver.find_elements(By.CSS_SELECTOR,".group__checkbox")
+        time.sleep(3)
+        filter_checkbox[0].click()
+        time.sleep(3)
+        gender_click()
+        time.sleep(3)
+        filter_close = self.driver.find_element(By.CSS_SELECTOR,".selected__item")
+        filter_close.click()
+        time.sleep(5)
+
+
+
+
+
+
