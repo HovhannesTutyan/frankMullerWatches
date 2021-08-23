@@ -75,15 +75,91 @@ class Test_Login(BaseTest):
     #     all_watches = self.driver.find_elements(By.CSS_SELECTOR,".watch")
     #     # print(len(all_watches))
     #     assert len(all_watches) == 9
-    def test_filter_delete_by_not_done(self):
+    # def test_filter_delete_by_not_done(self):
+    #     self.loginPage = WatchesPage(self.driver)
+    #     self.loginPage.filter_delete_by_not_done()
+    #     collections = self.driver.find_elements(By.CSS_SELECTOR,".collection")
+    #     for collection in collections:
+    #         if collection.text == "VANGUARD":
+    #             print("************ After deleting the not done filter the collections page is displayed ***************")
+    #     else:
+    #         print("----------- All watches are displayed after deleting the not done filter --------------")
+    def test_filter_by_random_tags(self):
         self.loginPage = WatchesPage(self.driver)
-        self.loginPage.filter_delete_by_not_done()
-        collections = self.driver.find_elements(By.CSS_SELECTOR,".collection")
-        for collection in collections:
-            if collection.text == "VANGUARD":
-                print("************ After deleting the not done filter the collections page is displayed ***************")
-        else:
-            print("----------- All watches are displayed after deleting the not done filter --------------")
+        self.loginPage.filter_by_random_tags()
+        selected_title = self.driver.find_element(By.CSS_SELECTOR,".selected__title")
+        watch_title = self.driver.find_elements(By.CSS_SELECTOR,".watch__title")
+        if selected_title.text == "Ladies'":
+            assert watch_title[0].text == "V 45 SC DT YACHT (BL)"
+            assert watch_title[1].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "Men's":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D (NR)"
+            assert watch_title[2].text == "V 32 QZ D CD (NR)"
+            assert watch_title[3].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[4].text == "V 32 QZ COL DRM D CD (RG)"
+            assert watch_title[5].text == "V 35 QZ COL DRM D CD (RG)"
+            assert watch_title[6].text == "2852 QZ DP O"
+        elif selected_title.text == "North America Exclusives":
+            assert watch_title[0].text == "V 45 SC DT YACHT (BL)"
+            assert watch_title[1].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "Gem-set":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D (NR)"
+            assert watch_title[2].text == "V 32 QZ D CD (NR)"
+            assert watch_title[3].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[4].text == "V 32 QZ COL DRM D CD (RG)"
+            assert watch_title[5].text == "V 35 QZ COL DRM D CD (RG)"
+            assert watch_title[6].text == "2852 QZ DP O"
+        elif selected_title.text == "Automatic (Self-winding)":
+            assert watch_title[0].text == "V 45 SC DT YACHT (BL)"
+            assert watch_title[1].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "Quartz":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D (NR)"
+            assert watch_title[2].text == "V 32 QZ D CD (NR)"
+            assert watch_title[3].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[4].text == "V 32 QZ COL DRM D CD (RG)"
+            assert watch_title[5].text == "V 35 QZ COL DRM D CD (RG)"
+            assert watch_title[6].text == "2852 QZ DP O"
+        elif selected_title.text == "Chronograph":
+            assert watch_title[0].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "Grande Date":
+            assert watch_title[0].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "Stainless Steel":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[2].text == "2852 QZ DP O"
+        elif selected_title.text == "Stainless Steel":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[2].text == "2852 QZ DP O"
+        elif selected_title.text == "18K Rose Gold":
+            assert watch_title[0].text == "V 32 QZ D (NR)"
+            assert watch_title[1].text == "V 32 QZ D CD (NR)"
+            assert watch_title[2].text == "V 32 QZ COL DRM D CD (RG)"
+            assert watch_title[3].text == "V 35 QZ COL DRM D CD (RG)"
+            assert watch_title[4].text == "V 45 SC DT YACHT (BL)"
+            assert watch_title[5].text == "V 45 CC GD SQT (NR)"
+        elif selected_title.text == "$5'000 to $15'999":
+            assert watch_title[2].text == "2852 QZ DP O"
+        elif selected_title.text == "$16'000 to $29'999":
+            assert watch_title[0].text == "V 32 QZ D (NR) ace"
+            assert watch_title[1].text == "V 32 QZ D (NR)"
+            assert watch_title[2].text == "V 32 QZ D CD (NR) ace"
+            assert watch_title[3].text == "V 45 SC DT YACHT (BL)"
+        elif selected_title.text == "$30000 to $49'999":
+            assert watch_title[0].text == "V 32 QZ D CD (NR)"
+            assert watch_title[1].text == "V 32 QZ COL DRM D CD (RG)"
+            assert watch_title[2].text == "V 35 QZ COL DRM D CD (RG)"
+            assert watch_title[3].text == "V 45 CC GD SQT (NR)"
+
+
+
+
+
+
+
 
 
 
